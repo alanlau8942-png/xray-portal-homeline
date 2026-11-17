@@ -1,0 +1,13 @@
+# Companion to homeline-heal.timer.example.
+# Install as /etc/systemd/system/homeline-heal-<cc>.service
+[Unit]
+Description=Homeline heal <CC>
+After=docker.service
+
+[Service]
+Type=oneshot
+Nice=10
+MemoryMax=80M
+TimeoutStartSec=280
+Environment=HOMELINE_BASE=<HOMELINE_BASE> GATEWAY_IMAGE=<GATEWAY_IMAGE>
+ExecStart=<HOMELINE_BASE>/heal/heal.sh <CC> vpngw-<cc>-gateway <LINE_DIR> <SOCKS_PORT>
