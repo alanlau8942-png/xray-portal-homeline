@@ -1,0 +1,65 @@
+{
+    "inbounds": [
+        {
+            "listen": "127.0.0.1",
+            "port": 11001,
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "<YOUR_UUID>"
+                    }
+                ],
+                "decryption": "none"
+            },
+            "sniffing": {
+                "destOverride": [
+                    "http",
+                    "tls"
+                ],
+                "enabled": true
+            },
+            "streamSettings": {
+                "network": "ws",
+                "wsSettings": {
+                    "path": "/home-<NAME>"
+                }
+            }
+        }
+    ],
+    "log": {
+        "loglevel": "warning"
+    },
+    "outbounds": [
+        {
+            "protocol": "socks",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": 12081,
+                        "users": [
+                            {
+                                "pass": "<GATE_PASS>",
+                                "user": "<GATE_USER>"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "block"
+        }
+    ],
+    "routing": {
+        "rules": [
+            {
+                "network": "udp",
+                "outboundTag": "block",
+                "type": "field"
+            }
+        ]
+    }
+}
