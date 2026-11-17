@@ -1,0 +1,17 @@
+# OPTIONAL. Only install if the operator wants scheduled node swapping;
+# "minute-check-only" mode (gateway watchdog alone, human fixes dead nodes on
+# request) is a valid, supported choice.
+# Replace <cc>/<CC>/<...>. Interval is the operator's choice (12h shown;
+# *:0/30 = every 30 min).
+# Install as /etc/systemd/system/homeline-heal-<cc>.timer
+[Unit]
+Description=Homeline heal <CC>
+
+[Timer]
+OnCalendar=*-*-* 00/12:07:00
+RandomizedDelaySec=300
+Persistent=true
+Unit=homeline-heal-<cc>.service
+
+[Install]
+WantedBy=timers.target
