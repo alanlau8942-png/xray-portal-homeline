@@ -1,0 +1,19 @@
+# systemd unit for one residential-exit Xray line (Variant P, WS via nginx).
+# Install: copy to /etc/systemd/system/xray-home-<NAME>.service and replace
+# <NAME> with the lowercase line name (e.g. jp). The Xray binary is the one
+# installed by install.sh (/usr/local/bin/xray); each line keeps its own
+# config dir so lines never share credentials.
+[Unit]
+Description=Xray residential exit <NAME> (WS via nginx)
+After=network-online.target docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/local/bin/xray run -c /etc/xray-home-<NAME>/config.json
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
