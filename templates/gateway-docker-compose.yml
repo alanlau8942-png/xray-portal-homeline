@@ -1,0 +1,20 @@
+# OPTIONAL compose form of one gateway container (equivalent to the
+# `docker run` in scripts/add-country.sh). Copy to <LINE_DIR>/docker-compose.yml,
+# replace <...>. One gateway per country line; never share ports/dirs.
+# There is deliberately NO manager container and NO /var/run/docker.sock mount
+# (docker.sock = root-equivalent).
+services:
+  gateway:
+    image: <GATEWAY_IMAGE>            # e.g. homeline-gw:v2, built from scripts/gateway.Dockerfile
+    container_name: vpngw-<NAME>-gateway
+    cap_add: [NET_ADMIN]
+    devices: [/dev/net/tun]
+    mem_limit: 48m
+    dns: [8.8.8.8, 1.1.1.1]          # public resolver: provider metadata DNS dies once the tunnel takes the default route
+    ports:
+      # SOCKS only on loopback. 0.0.0.0 here is a security incident.
+      - "127.0.0.1:<SOCKS_PORT>:1080"
+    volumes:
+      - ./ovpn:/vpn                   # client.ovpn + auth.txt (both 600)
+    env_file: .env                    # GATE_USER / GATE_PASS, exact names
+    restart: unless-stopped
