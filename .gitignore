@@ -1,0 +1,12 @@
+# Credentials and generated artifacts — never commit these.
+.env
+*.ovpn
+auth.txt
+client.txt
+*-qr.png
+*link*.txt
+links/
+scan-*/
+heal/
+*.log
+__pycache__/
