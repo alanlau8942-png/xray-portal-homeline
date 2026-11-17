@@ -1,0 +1,22 @@
+{
+    "checked_at": "<ISO8601_WITH_TIMEZONE>",
+    "lines": {
+        "<COUNTRY_CODE>": {
+            "consecutive_failed_runs": 0,
+            "error": null,
+            "exit_ip": "<EXIT_IP_OR_NULL>",
+            "heal": "<HEAL_ACTION_OR_NULL>",
+            "last_ok_utc": "<ISO8601_UTC_OR_NULL>",
+            "needs_user_notify": false,
+            "note": "<SHORT_HUMAN_NOTE>",
+            "notify_rule": "notify when consecutive_failed_runs > 3 and self-heal fails",
+            "org": "<ISP_ORG_AND_CITY_OR_NULL>",
+            "socks_port": "<SOCKS_PORT>",
+            "status": "working|failed",
+            "user_notified": false,
+            "xray_active": true,
+            "xray_port": "<XRAY_PORT>",
+            "xray_service": "xray-home-<NAME>"
+        }
+    }
+}
